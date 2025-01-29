@@ -125,7 +125,7 @@ userRouter.get("/modifyUser/:id", async (req, res) => {
   });
   const entreprise = await prisma.entreprise.findUnique({
     where: {
-      siret: req.session.entreprise.siret, 
+      siret: req.session.entreprise.siret,
     },
     include: {
       employes: {
@@ -217,11 +217,12 @@ userRouter.post("/loginUser", async (req, res) => {
         ordinateur : true
       }
     });
+    const events = await prisma.event.findMany();
 
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
         req.session.user = user;
-        res.render("./pages/userProfile.html.twig", { user: user });
+        res.render("./pages/userProfile.html.twig", { user, events });
       } else throw { password: "Mot de passe incorect" };
     } else throw { mail: "Mail incorrect" };
   } catch (error) {
@@ -258,9 +259,9 @@ const ordinateur = await prisma.ordinateur.update({
     id: parseInt(user.ordinateurID),
   },
   data: {
-    Working: req.body.Working === "on", 
+    Working: req.body.Working === "on",
     employe: {
-      connect: { id: user.id }, 
+      connect: { id: user.id },
     },
   },
 });

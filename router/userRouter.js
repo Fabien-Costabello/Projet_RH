@@ -232,35 +232,6 @@ userRouter.post("/loginUser", async (req, res) => {
 
 //////////////////////////////////////////Envoi Mail////////////////////////////////////////////
 
-const nodemailer = require("nodemailer");
-const { log } = require("console");
-
-// Créer un transporteur pour envoyer les emails
-const transporter = nodemailer.createTransport({
-  service: "gmail", // Exemple avec Gmail
-  auth: {
-    user: "costabellobis@gmail.com", // Ton email
-    pass: "croustille19", // Ton mot de passe (ou un mot de passe d'application si tu utilises Gmail)
-  },
-});
-
-// Fonction pour envoyer l'email
-const sendWelcomeEmail = (userEmail, userName) => {
-  const mailOptions = {
-    from: "costabellobis@gmail.com", // L'email de l'expéditeur
-    to: userEmail, // L'email du destinataire
-    subject: "Bienvenue sur notre site", // Sujet de l'email
-    text: `Bonjour ${userName},\n\nBienvenue sur notre plateforme ! Nous sommes heureux de vous compter parmi nous.\n\nCordialement,\nL'équipe.`, // Corps de l'email
-  };
-
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.log("Erreur lors de l'envoi de l'email: ", error);
-    } else {
-      console.log("Email envoyé: " + info.response);
-    }
-  });
-};
 
 
 

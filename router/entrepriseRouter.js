@@ -80,25 +80,25 @@ entrepriseRouter.get("/getstarted", (req, res) => {
     try {
       const entreprise = await prisma.entreprise.findUnique({
         where: {
-          siret: req.session.entreprise.siret, // Utilisation du siret de la session pour rechercher l'entreprise
+          siret: req.session.entreprise.siret,
         },
         include: {
           employes: {
             include: {
-              ordinateur: true, // Inclure l'ordinateur associé à chaque employé
+              ordinateur: true, 
             },
           },
         },
       });
   
-      // Log des résultats pour voir ce qui est renvoyé
-      console.log(entreprise); // Vérifier ce qui est retourné par Prisma
+ 
+      console.log(entreprise); 
     
-      // Rendre la vue avec les données de l'entreprise et des employés, y compris les ordinateurs associés
+  
       res.render("pages/index.html.twig", {
         title: "Accueil",
         entreprise: req.session.entreprise,
-        employes: entreprise.employes, // Renvoyer les employés avec leurs ordinateurs
+        employes: entreprise.employes, 
       });
     } catch (error) {
       console.error("Erreur lors de la récupération de l'entreprise :", error);

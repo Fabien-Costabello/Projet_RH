@@ -66,7 +66,7 @@ entrepriseRouter.get("/getstarted", (req, res) => {
           req.session.entreprise = entreprise;
           res.redirect("/");
         } else throw { password: "Mot de passe incorect" };
-      } else throw { mail: "Siret incorrect" };
+      } else throw { siret: "Siret incorrect" };
     } catch (error) {
       console.log(error);
       res.render("./pages/login.html.twig", { title: "Login" });

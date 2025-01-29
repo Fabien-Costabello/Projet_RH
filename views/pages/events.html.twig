@@ -1,0 +1,74 @@
+{% extends "../layout/base.html.twig" %}
+
+{% block main %}
+    <div id="calendar"></div>
+{% endblock %}
+
+{% block styles %}
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction/main.css" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction/main.js"></script>
+
+    <script>
+
+    console.log('FullCalendar script chargé !');
+        document.addEventListener('DOMContentLoaded', function() {
+            let calendarEl = document.getElementById('calendar');
+            let calendar = new FullCalendar.Calendar(calendarEl, {
+                plugins: [FullCalendar.DayGrid, FullCalendar.TimeGrid, FullCalendar.Interaction],
+                initialView: 'dayGridMonth',
+                selectable: true,
+                editable: true,
+                events: '/events', // Charge les événements depuis l'API
+
+                // Ajouter un événement en cliquant sur une date
+                select: async function(info) {
+                    let title = prompt("Titre de l'événement ?");
+                    if (title) {
+                        let response = await fetch('/events', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                title,
+                                start: info.startStr,
+                                end: info.endStr,
+                                allDay: info.allDay
+                            })
+                        });
+
+                        if (response.ok) {
+                            calendar.refetchEvents();
+                        } else {
+                            alert('Erreur lors de l\'ajout');
+                        }
+                    }
+                },
+
+                // Supprimer un événement en cliquant dessus
+                eventClick: async function(info) {
+                    if (confirm("Supprimer cet événement ?")) {
+                        let response = await fetch('/events/' + info.event.id, {
+                            method: 'DELETE'
+                        });
+
+                        if (response.ok) {
+                            info.event.remove();
+                        } else {
+                            alert('Erreur lors de la suppression');
+                        }
+                    }
+                }
+            });
+
+            calendar.render();
+        });
+    </script>
+{% endblock %}

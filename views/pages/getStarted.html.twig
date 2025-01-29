@@ -1,0 +1,61 @@
+{% extends "../layout/base.html.twig" %}
+
+{% block style %}
+<link rel="stylesheet" href="assets/css/output.css">
+{% endblock %}
+
+
+{% block main %}
+<div class="bg-black py-16 lg:py-24">
+  <div class="px-4sm:px-6 mx-auto max-w-7xl lg:px-8">
+    <!-- Main Card -->
+    <div class="relative isolate mx-auto flex max-w-2xl flex-col gap-16 overflow-hidden border border-transparent px-6 py-16 ring-1 ring-white/10 sm:rounded-3xl sm:border-slate-700 sm:p-8 lg:mx-0 lg:max-w-none lg:flex-row lg:items-center lg:py-20 xl:gap-x-20 xl:px-20">
+      <div class="absolute left-1/2 top-0 -z-10 h-full w-full -translate-x-1/2 bg-[radial-gradient(50%_100%_at_top,rgba(200,200,200,0.3),transparent)] opacity-80 lg:left-36"></div>
+      <div class="absolute -inset-y-px left-12 -z-10 w-full origin-bottom-left skew-x-[-45deg] scale-110 bg-slate-600 opacity-20 ring-1 ring-inset ring-white" aria-hidden="true"></div>
+      <!-- Image -->
+      <img class="h-96 w-full flex-none rounded-2xl object-cover shadow-xl lg:aspect-square lg:h-auto lg:max-w-sm" src="https://images.unsplash.com/photo-1573165706511-3ffde6ef1fe3?q=80&w=2969&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Office workspace" />
+
+      <!-- Text Content -->
+      <div class="w-full flex-auto">
+        <h2 class="text-4xl font-semibold tracking-tight text-white sm:text-5xl">Améliorez votre productivité avec nous</h2>
+        <p class="mt-6 text-lg text-gray-300">Planifiez, gérez et optimisez les processus de gestion des ressources humaines à l'échelle mondiale à l'aide d'une seule source de données commune. Prenez de meilleures décisions, personnalisez l'expérience de vos collaborateurs et tirez parti de workflows hautement configurables.</p>
+
+        <!-- Feature List -->
+        <ul role="list" class="mt-10 grid grid-cols-1 gap-x-8 gap-y-3 text-base text-white sm:grid-cols-2">
+          <li class="flex gap-x-3">
+            <svg class="h-7 w-5 flex-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>
+            Gérer vos managers
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-7 w-5 flex-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>
+            Gérer vos équipes
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-7 w-5 flex-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>
+            Interface intuitive
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-7 w-5 flex-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>
+            Support 7/7
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-7 w-5 flex-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>
+            Gerez vos ordinateurs
+          </li>
+          <li class="flex gap-x-3">
+            <svg class="h-7 w-5 flex-none" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check"><path d="M20 6 9 17l-5-5" /></svg>
+            Gestion des congés collaborateurs
+          </li>
+        </ul>
+
+        <!-- CTA Link -->
+        <div class="mt-10 flex">
+          <a href="./subscribe" class="relative inline-flex items-center justify-center rounded-xl border border-slate-700 px-9 py-3.5 text-base font-semibold text-white transition-transform hover:scale-105 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">Essayez gratuitement →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

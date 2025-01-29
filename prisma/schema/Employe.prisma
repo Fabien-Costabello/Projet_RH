@@ -1,0 +1,14 @@
+model Employe {
+  id Int @id @default(autoincrement())
+  firstName String
+  lastName String 
+  mail String @unique
+  age Int
+  Genre String
+  password String
+  avatar String @default("/assets/img/default.png")
+  entrepriseId Int
+  entreprise Entreprise @relation(fields: [entrepriseId],references: [siret])
+  ordinateurID Int? @unique
+   ordinateur    Ordinateur? @relation(fields: [ordinateurID], references: [id])
+}

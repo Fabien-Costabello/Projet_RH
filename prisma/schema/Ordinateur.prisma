@@ -1,0 +1,10 @@
+model Ordinateur {
+  id Int @id @default(autoincrement())
+  macAdress String @unique
+  Working Boolean @default(true)
+  entrepriseId Int
+  employeId Int? @unique
+  entreprise Entreprise @relation(fields: [entrepriseId],references: [siret])
+  employe Employe? @relation
+
+}

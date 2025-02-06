@@ -12,3 +12,5 @@ model Employe {
   ordinateurID Int? @unique
    ordinateur    Ordinateur? @relation(fields: [ordinateurID], references: [id])
 }
+
+

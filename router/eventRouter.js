@@ -19,9 +19,13 @@ eventRouter.get('/events', async (req, res) => {
 // Ajouter un événement
 eventRouter.post('/events', async (req, res) => {
     try {
+        
+        
         const { title, start, end, allDay } = req.body;
+       
+        
         const event = await prisma.event.create({
-            data: { title, start: new Date(start), end: end ? new Date(end) : null, allDay }
+            data: { title, start: new Date(start), end: end ? new Date(end) : null, allDay}
         });
         res.json(event);
     } catch (error) {

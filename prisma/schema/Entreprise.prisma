@@ -1,7 +1,6 @@
 model Entreprise {
   raisonSociale String
   siret Int @id @unique
-  firstName String
   lastName String 
   email String @unique
   password String

@@ -2,17 +2,45 @@
 
 {% block main %}
 
-	<main class="w-full min-h-screen py-1 md:w-2/3 lg:w-3/4">
+	<div class="flex h-screen bg-gray-100 w-full">
+
+	<!-- sidebar -->
+	<div class="hidden md:flex flex-col w-64 bg-gray-800 h-full">
+		<div class="flex items-center justify-center h-16 bg-gray-900">
+			<span class="text-white font-bold uppercase">Utilisateur</span>
+		</div>
+		<div class="flex flex-col flex-1 overflow-y-auto">
+			<nav class="flex-1 px-2 py-4 bg-gray-800">
+				<a href="#" class="flex items-center px-4 py-2 text-gray-100 hover:bg-gray-700">
+					<svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 6H5m2 3H5m2 3H5m2 3H5m2 3H5m11-1a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2M7 3h11a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Zm8 7a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/>
+					</svg>
+					Mon profil
+				</a>
+				<a href="/computersList" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+					<svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewbox="0 0 24 24">
+						<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 16H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v1M9 12H4m8 8V9h8v11h-8Zm0 0H9m8-4a1 1 0 1 0-2 0 1 1 0 0 0 2 0Z"/>
+					</svg>
+					Calendrier
+				</a>
+				<a href="/logOut" class="flex items-center px-4 py-2 mt-2 text-gray-100 hover:bg-gray-700">
+					<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+						<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
+					</svg>
+					Déconnexion
+				</a>
+			</nav>
+		</div>
+	</div>
+
+	<main class="w-full h-full py-1 md:w-2/3 lg:w-3/4 overflow-auto flex justify-between">
 		<div class="p-2 md:p-4">
 			<div class="w-full px-6 pb-8 mt-8 sm:max-w-xl sm:rounded-lg">
-				<h2 class="pl-6 text-2xl font-bold sm:text-xl">Profile de
-					{{user.firstName}}</h2>
+				<h2 class="pl-6 text-2xl font-bold sm:text-xl">Profile de {{user.firstName}}</h2>
 
 				<div class="grid max-w-2xl mx-auto mt-8">
 					<div class="flex flex-col items-center space-y-5 sm:flex-row sm:space-y-0">
-
 						<img class="object-cover w-40 h-40 p-1 rounded-full ring-2 ring-indigo-300 dark:ring-indigo-500" src="{{user.avatar}}" alt="Bordered avatar">
-
 						<div class="flex flex-col space-y-5 sm:ml-8">
 							<form id="uploadForm" enctype="multipart/form-data">
 								<input type="file" id="avatarInput" name="avatar" accept="image/*" class="hidden">
@@ -21,87 +49,72 @@
 								</button>
 							</form>
 							{% if user.avatar == "/assets/img/default.png" %}
-
-
-								{% else %}
-									<button type="button" id="deleteButton" class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
-										<a href="/delete-avatar">
-											Supprimer la photo</a>
-
-									</button>
-
+							{% else %}
+								<button type="button" id="deleteButton" class="py-3.5 px-7 text-base font-medium text-indigo-900 focus:outline-none bg-white rounded-lg border border-indigo-200 hover:bg-indigo-100 hover:text-[#202142] focus:z-10 focus:ring-4 focus:ring-indigo-200 ">
+									<a href="/delete-avatar">Supprimer la photo</a>
+								</button>
 							{% endif %}
-
-
 						</div>
 					</div>
 
-<form method="POST" action="/modifyProfil/{{user.id}}">
-					<div class="items-center mt-8 sm:mt-14 text-[#202142]">
-
-						<div class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
-							<div class="w-full">
-								<label for="firstName" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Prénom</label>
-								<input name="firstName" type="text" id="firstName" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 " placeholder="Prénom" value="{{user.firstName}}" required>
+					<form method="POST" action="/modifyProfil/{{user.id}}">
+						<div class="items-center mt-8 sm:mt-14 text-[#202142]">
+							<div class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
+								<div class="w-full">
+									<label for="firstName" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Prénom</label>
+									<input name="firstName" type="text" id="firstName" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Prénom" value="{{user.firstName}}" required>
+								</div>
+								<div class="w-full">
+									<label for="lastName" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Nom de famille</label>
+									<input name="lastName" type="text" id="lastName" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Nom" value="{{user.lastName}}" required>
+								</div>
 							</div>
 
-							<div class="w-full">
-								<label for="lastName" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Nom de famille</label>
-								<input name="lastName" type="text" id="lastName" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 " placeholder="Nom" value="{{user.lastName}}" required>
+							<div class="mb-2 sm:mb-6">
+								<label for="mail" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Email</label>
+								<input type="mail" name="mail" id="mail" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Email" value="{{user.mail}}" required>
 							</div>
 
-						</div>
+							<div class="mb-2 sm:mb-6">
+								<label for="genre" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Genre</label>
+								<input type="genre" name="Genre" id="genre" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="Genre" value="{{user.Genre}}" required>
+							</div>
 
-						<div class="mb-2 sm:mb-6">
-							<label for="mail" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Email</label>
-							<input type="mail" name="mail" id="mail" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 " placeholder="Email" value="{{user.mail}}" required>
-						</div>
+							<div class="mb-2 sm:mb-6">
+								<label for="age" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Age</label>
+								<input type="age" name="age" id="age" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" placeholder="age" value="{{user.age}}" required>
+							</div>
 
-						<div class="mb-2 sm:mb-6">
-							<label for="genre" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Genre</label>
-							<input type="genre" name="Genre" id="genre" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 " placeholder="Genre" value="{{user.Genre}}" required>
-						</div>
-
-
-						<div class="mb-2 sm:mb-6">
-							<label for="age" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Age</label>
-							<input type="age" name="age" id="age" class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 " placeholder="age" value="{{user.age}}" required>
-						</div>
-
-						{% if user.ordinateurID %}
-
+							{% if user.ordinateurID %}
 							<div class="flex flex-col items-center w-full mb-2 space-x-0 space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0 sm:mb-6">
 								<div class="w-full">
 									<label for="ordinateurID" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">ID ordinateur</label>
-									<p class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5 " value="{{user.ordinateurID}}">{{user.ordinateurID }}</p>
+									<p class="bg-indigo-50 border border-indigo-300 text-indigo-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-500 block w-full p-2.5" value="{{user.ordinateurID}}">{{user.ordinateurID}}</p>
 								</div>
-
 								<div class="w-full">
 									<label for="Working" class="block mb-2 text-sm font-medium text-indigo-900 dark:text-white">Fonctionne</label>
 									<input class="text-center" type="checkbox" class="h-5 w-5 border-gray-300 rounded" name="Working" {% if user.ordinateur.Working %} checked {% endif %}/>
 									<label class="ml-2 text-gray-900">En fonctionnement</label>
 								</div>
+							</div>
+							{% else %}
+							{% endif %}
 
+							<div class="flex justify-end">
+								<button type="submit" class="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Save</button>
 							</div>
 
-							{% else %}
-
-
-						{% endif %}
-
-
-						<div class="flex justify-end">
-							<button type="submit" class="text-white bg-indigo-700  hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Save</button>
 						</div>
-
-					</div>
 					</form>
 				</div>
 			</div>
 		</div>
+<div id="calendar" class="flex-1 p-4 bg-white border-l-2 border-gray-300"></div>
 	</main>
 
-  <div id="calendar"></div>
+</div>
+
+
 
 {% endblock %}
 
@@ -135,6 +148,7 @@ alert('Erreur lors de l’upload');
 
     <script>
       const events = {{ events|json_encode|raw }};
+
       console.log('FullCalendar script chargé !');
         document.addEventListener('DOMContentLoaded', function() {
             let calendarEl = document.getElementById('calendar');

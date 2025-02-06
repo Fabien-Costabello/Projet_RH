@@ -45,6 +45,7 @@ userRouter.post("/upload-avatar", upload.single("avatar"), async (req, res) => {
 
 ////Supprimer un avatar
 const fs = require("fs"); // Pour gérer les fichiers
+const { log } = require("console");
 
 userRouter.get("/delete-avatar", async (req, res) => {
   try {
@@ -109,6 +110,35 @@ userRouter.post("/addUser", async (req, res) => {
         entrepriseId: req.session.entreprise.siret,
       },
     });
+
+    const sgMail = require('@sendgrid/mail');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const msg = {
+  to: mail, // Destinataire
+  from: 'costabellofabien@gmail.com', // Expéditeur vérifié
+  subject: 'Connexion à votre profil personnel',
+  text: `Cliquez sur le lien pour vous connecter : http://localhost:3000/loginUser
+Votre adresse email : ${mail}
+Votre mot de passe : ${password}`,
+  html: `
+    <p><strong><a href="http://localhost:3000/loginUser">Cliquez ici pour vous connecter</a></strong></p>
+    <p><strong>Vos identifiants :</strong></p>
+    <p>Email : ${mail}</p>
+    <p>Mot de passe : ${password}</p>
+  `
+};
+
+sgMail
+  .send(msg)
+  .then(() => {
+    console.log('Email sent');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
 
     res.redirect("/");
   } catch (error) {
@@ -217,11 +247,13 @@ userRouter.post("/loginUser", async (req, res) => {
         ordinateur : true
       }
     });
-    const events = await prisma.event.findMany();
+    const events = await prisma.event.findMany()
 
     if (user) {
       if (await bcrypt.compare(req.body.password, user.password)) {
         req.session.user = user;
+        
+        
         res.render("./pages/userProfile.html.twig", { user, events });
       } else throw { password: "Mot de passe incorect" };
     } else throw { mail: "Mail incorrect" };
@@ -268,7 +300,7 @@ const ordinateur = await prisma.ordinateur.update({
 
     const mUser = await prisma.employe.findUnique({
       where: {
-        mail: req.body.mail,
+        id: parseInt(req.params.id)
       },include :{
         ordinateur : true
       }

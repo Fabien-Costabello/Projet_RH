@@ -17,7 +17,7 @@ entrepriseRouter.get("/getstarted", (req, res) => {
   //Inscription 
   entrepriseRouter.post("/subscribe", async (req, res) => {
     try {
-      const {raisonSociale,siret,email,password,cpassword,firstName,lastName} = req.body
+      const {raisonSociale,siret,email,password,cpassword,lastName} = req.body
       if (password !== cpassword){
         throw{confirmPassword : "Les mots de passes doivent être identique"}
       } else{
@@ -25,13 +25,17 @@ entrepriseRouter.get("/getstarted", (req, res) => {
           data:{
             raisonSociale:raisonSociale,
             siret: parseInt(siret),
-            firstName:firstName,
             lastName:lastName,
             email:email,
             password:password
           }
         })
-        res.render("./pages/subscribe.html.twig", { title: "Inscription" });
+
+        const entreprise = await prisma.entreprise.findUnique({
+          where: { siret: parseInt (siret)}
+        })
+        req.session.entreprise = entreprise;
+        res.render("./pages/index.html.twig", { title: "Inscription" });
       }
     } catch (error) {
       console.log(error);

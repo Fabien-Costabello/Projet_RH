@@ -5,3 +5,5 @@ model Event {
   end       DateTime?
   allDay    Boolean
 }
+
+

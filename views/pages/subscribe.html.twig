@@ -5,66 +5,54 @@
 {% endblock %}
 
 {% block main %}
-	<div class="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
-		<div class="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
-			<div class="text-center mb-12">
-				<a href="javascript:void(0)"><img src="" alt="METTRE LOGO" class='w-40 inline-block'/>
-				</a>
-			</div>
+	<div class="bg-black min-h-screen flex items-center justify-center bg-[url(/assets/img/login.png)] bg-no-repeat
+ bg-cover">
+  <div class="max-w-4xl max-sm:max-w-lg mx-auto font-[sans-serif] p-6 bg-white rounded-lg shadow-lg">
+    <div class="text-center mb-12 sm:mb-16">
+      
+      <h4 class="text-gray-600 text-base mt-6">Inscrivez-vous</h4>
+    </div>
 
-			<form method="post" action="/subscribe">
-				<div class="space-y-6">
-					<div>
-						<label for="raisonSociale" class="text-gray-800 text-sm mb-2 block">Raison sociale
-						</label>
-						<input  list="raisonSociale" id="raisonSociale" name="raisonSociale" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrez votre raison sociale"/>
-				
-					</div>
-					<div>
-						<label class="text-gray-800 text-sm mb-2 block">Siret</label>
-						<input name="siret" type="text" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrez votre SIRET"/>
-					</div>
-					<div>
-						<label class="text-gray-800 text-sm mb-2 block">Email</label>
-						<input name="email" type="text" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrez votre email"/>
-					</div>
-          	<div>
-						<label class="text-gray-800 text-sm mb-2 block">Prénom</label>
-						<input name="firstName" type="text" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrez votre email"/>
-					</div>
-          	<div>
-						<label class="text-gray-800 text-sm mb-2 block">Nom</label>
-						<input name="lastName" type="text" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrez votre email"/>
-					</div>
-					<div>
-						<label class="text-gray-800 text-sm mb-2 block">Mot de passe
-						</label>
-						<input name="password" type="password" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrez votre mot de passe"/>
-					</div>
-					<div>
-						<label class="text-gray-800 text-sm mb-2 block">Confirmer le mot de passe</label>
-						<input name="cpassword" type="password" class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Confirmez votre mot de passe"/>
-					</div>
+    <form method="POST" action="/subscribe">
+      <div class="grid sm:grid-cols-2 gap-6">
+        <div>
+          <label class="text-gray-600 text-sm mb-2 block">Raison sociale</label>
+          <input name="raisonSociale" type="text" class="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3 rounded focus:bg-transparent outline-blue-500 transition-all" placeholder="Entrez votre raison sociale" />
+        </div>
+        <div>
+          <label class="text-gray-600 text-sm mb-2 block">Siret</label>
+          <input name="siret" type="text" class="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3 rounded focus:bg-transparent outline-blue-500 transition-all" placeholder="Entrez votre SIRET" />
+        </div>
+        <div>
+          <label class="text-gray-600 text-sm mb-2 block">Email</label>
+          <input name="email" type="text" class="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3 rounded focus:bg-transparent outline-blue-500 transition-all" placeholder="Entrez votre email" />
+        </div>
+        <div>
+          <label class="text-gray-600 text-sm mb-2 block">Nom</label>
+          <input name="lastName" type="text" class="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3 rounded focus:bg-transparent outline-blue-500 transition-all" placeholder="Entrez votre nom" />
+        </div>
+        <div>
+          <label class="text-gray-600 text-sm mb-2 block">Mot de passe</label>
+          <input name="password" type="password" class="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3 rounded focus:bg-transparent outline-blue-500 transition-all" placeholder="Entrez votre mot de passe" />
+        </div>
+        <div>
+          <label class="text-gray-600 text-sm mb-2 block">Confirmez le mot de passe</label>
+          <input name="cpassword" type="password" class="bg-gray-100 w-full text-gray-800 text-sm px-4 py-3 rounded focus:bg-transparent outline-blue-500 transition-all" placeholder="Confirmez votre mot de passe" />
+        </div>
+      </div>
 
-					<div class="flex items-center">
-						<input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"/>
-						<label for="remember-me" class="text-gray-800 ml-3 block text-sm">
-							J'accepte les<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="text-blue-600 font-semibold hover:underline ml-1">Conditions générales</a>
-						</label>
-					</div>
-				</div>
+      <div class="mt-8">
+        <button type="submit" class="mx-auto block py-3 px-6 text-sm tracking-wider rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
+          Inscription
+        </button>
+      </div>
+    </form>
 
-				<div class="!mt-8">
-					<button type="submit" class="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none">
-						Créer un compte
-					</button>
-				</div>
-				<p class="text-gray-800 text-sm mt-6 text-center">Déjà inscrit ?
-					<a href="/login" class="text-blue-600 font-semibold hover:underline ml-1">Connexion</a>
-				</p>
-			</form>
-		</div>
-	</div>
+    <p class="text-gray-800 text-sm mt-6 text-center">Déjà inscrit ?
+      <a href="/login" class="text-blue-600 font-semibold hover:underline ml-1">Connexion</a>
+    </p>
+  </div>
+</div>
 
 
 
